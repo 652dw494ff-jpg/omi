@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Omi — Technology for a brighter tomorrow</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #05070b;
+    color: white;
+    overflow-x: hidden;
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 64px;
+    background: rgba(5,7,11,.82);
+    backdrop-filter: blur(20px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 7%;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.logo {
+    font-size: 27px;
+    font-weight: 700;
+    letter-spacing: -1px;
+}
+
+nav ul {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+}
+
+nav a {
+    color: #ddd;
+    text-decoration: none;
+    font-size: 14px;
+    transition: .25s;
+}
+
+nav a:hover {
+    color: #35aaff;
+}
+
+.hero {
+    min-height: 100vh;
+    padding-top: 130px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background:
+        radial-gradient(circle at 50% 35%, #12335f 0%, transparent 35%),
+        linear-gradient(180deg,#08111f,#05070b);
+}
+
+.hero h1 {
+    font-size: clamp(70px, 12vw, 150px);
+    letter-spacing: -8px;
+    background: linear-gradient(90deg,#fff,#54b9ff);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.hero p {
+    margin-top: 15px;
+    font-size: 19px;
+    letter-spacing: 7px;
+    color: #9db9d2;
+}
+
+.hero button {
+    margin-top: 40px;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 30px;
+    background: #159cff;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: .25s;
+}
+
+.hero button:hover {
+    transform: scale(1.05);
+    background: #42b1ff;
+}
+
+section {
+    padding: 100px 7%;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 46px;
+    margin-bottom: 60px;
+}
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+    gap: 25px;
+    max-width: 1250px;
+    margin: auto;
+}
+
+.card {
+    background: linear-gradient(145deg,#111822,#080b10);
+    border: 1px solid rgba(255,255,255,.09);
+    border-radius: 25px;
+    padding: 30px;
+    min-height: 430px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: .35s;
+}
+
+.storage-picker {
+    margin-top: 14px;
+}
+
+.storage-picker label {
+    display: block;
+    color: #9ba7b5;
+    font-size: 12px;
+    margin-bottom: 7px;
+}
+
+.storage-picker select {
+    width: 100%;
+    padding: 11px 12px;
+    border-radius: 12px;
+    border: 1px solid #334252;
+    background: #0b1016;
+    color: #fff;
+    font-size: 14px;
+    outline: none;
+}
+
+.storage-picker select:focus {
+    border-color: #159cff;
+}
+
+.availability {
+    color: #70c4ff;
+    font-size: 12px;
+    margin-top: 9px;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    border-color: #159cff;
+    box-shadow: 0 20px 70px rgba(0,130,255,.15);
+}
+
+.product-visual {
+    height: 210px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.phone {
+    width: 115px;
+    height: 205px;
+    border-radius: 25px;
+    background: linear-gradient(145deg,#f8f8f8,#777);
+    box-shadow: 0 20px 50px #000;
+    position: relative;
+}
+
+.phone::before {
+    content: "";
+    position: absolute;
+    top: 9px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 55px;
+    height: 17px;
+    border-radius: 20px;
+    background: #050505;
+}
+
+.phone::after {
+    content: "";
+    position: absolute;
+    right: -4px;
+    top: 45px;
+    width: 13px;
+    height: 65px;
+    border-radius: 8px;
+    background: #111;
+}
+
+.watch {
+    width: 125px;
+    height: 150px;
+    border-radius: 32px;
+    background: linear-gradient(145deg,#15191f,#777);
+    box-shadow: 0 20px 50px #000;
+    position: relative;
+}
+
+.watch-screen {
+    position: absolute;
+    inset: 12px;
+    border-radius: 25px;
+    background: radial-gradient(circle,#167dcc,#06101e);
+}
+
+.laptop {
+    width: 260px;
+    height: 155px;
+    border-radius: 10px;
+    background: linear-gradient(145deg,#bfc5cc,#3b4149);
+    position: relative;
+    transform: perspective(500px) rotateX(4deg);
+    box-shadow: 0 25px 60px #000;
+}
+
+.laptop::before {
+    content: "";
+    position: absolute;
+    left: 7%;
+    right: 7%;
+    top: 7%;
+    height: 72%;
+    border-radius: 6px;
+    background: linear-gradient(135deg,#0b4f9b,#03101e);
+}
+
+.laptop::after {
+    content: "";
+    position: absolute;
+    bottom: -14px;
+    left: -12px;
+    width: calc(100% + 24px);
+    height: 15px;
+    border-radius: 50%;
+    background: #858b92;
+}
+
+.card h3 {
+    font-size: 28px;
+}
+
+.card p {
+    color: #9ba7b5;
+    margin-top: 8px;
+}
+
+.price {
+    color: #35adff;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 18px;
+}
+
+.card button {
+    margin-top: 20px;
+    padding: 12px;
+    border-radius: 20px;
+    border: 1px solid #258fd2;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+}
+
+.card button:hover {
+    background: #159cff;
+}
+
+.viewer {
+    max-width: 1100px;
+    margin: auto;
+    background: linear-gradient(145deg,#0c121a,#07090d);
+    border-radius: 30px;
+    padding: 50px;
+    border: 1px solid rgba(255,255,255,.1);
+}
+
+.viewer-top {
+    display: flex;
+    gap: 50px;
+    align-items: center;
+}
+
+.big-product {
+    flex: 1;
+    min-height: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.big-phone {
+    width: 190px;
+    height: 340px;
+    border-radius: 35px;
+    background: linear-gradient(145deg,#fff,#777);
+    box-shadow: 0 30px 90px rgba(0,0,0,.8);
+    position: relative;
+    transition: .4s;
+}
+
+.big-phone:hover {
+    transform: rotateY(15deg) scale(1.03);
+}
+
+.big-phone::before {
+    content: "";
+    position: absolute;
+    top: 13px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 85px;
+    height: 25px;
+    background: #050505;
+    border-radius: 20px;
+}
+
+.info {
+    flex: 1;
+}
+
+.info h2 {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.info .tag {
+    color: #42b1ff;
+    margin-bottom: 30px;
+}
+
+.specs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.spec {
+    background: #101720;
+    padding: 17px;
+    border-radius: 15px;
+}
+
+.spec strong {
+    display: block;
+    font-size: 13px;
+    color: #8e9baa;
+    margin-bottom: 5px;
+}
+
+.spec span {
+    font-size: 16px;
+}
+
+.selector {
+    display: flex;
+    gap: 12px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.selector button {
+    padding: 11px 18px;
+    border-radius: 20px;
+    border: 1px solid #3b4b5d;
+    background: #111820;
+    color: white;
+    cursor: pointer;
+}
+
+.selector button.active,
+.selector button:hover {
+    background: #159cff;
+    border-color: #159cff;
+}
+
+.ai {
+    background:
+        radial-gradient(circle at 50% 20%,#173b67,transparent 40%),
+        #070b11;
+    text-align: center;
+}
+
+.ai h2 {
+    font-size: 65px;
+    margin-bottom: 20px;
+}
+
+.ai p {
+    max-width: 700px;
+    margin: auto;
+    color: #aab6c5;
+    line-height: 1.7;
+    font-size: 18px;
+}
+
+.ecosystem {
+    display: flex;
+    justify-content: center;
+    gap: 35px;
+    flex-wrap: wrap;
+    margin-top: 60px;
+}
+
+.eco {
+    width: 180px;
+    height: 180px;
+    border-radius: 30px;
+    background: #101720;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 20px;
+    border: 1px solid #1e3448;
+}
+
+footer {
+    padding: 50px;
+    text-align: center;
+    color: #6d7884;
+    border-top: 1px solid #151d25;
+}
+
+@media(max-width:800px) {
+    nav ul {
+        display:none;
+    }
+
+    .viewer {
+        padding:25px;
+    }
+
+    .viewer-top {
+        flex-direction:column;
+    }
+
+    .info h2 {
+        font-size:38px;
+    }
+
+    .specs {
+        grid-template-columns:1fr;
+    }
+}
+
+.purchase-page {
+    display: none;
+    min-height: 100vh;
+    padding: 120px 20px 70px;
+    background:
+        radial-gradient(circle at 50% 15%, #12335f 0%, transparent 38%),
+        #05070b;
+    align-items: center;
+    justify-content: center;
+}
+
+.purchase-box {
+    width: min(520px, 100%);
+    background: linear-gradient(145deg,#111822,#080b10);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 30px;
+    padding: 42px;
+    box-shadow: 0 30px 100px rgba(0,0,0,.55);
+}
+
+.back-btn {
+    background: transparent;
+    border: none;
+    color: #9db9d2;
+    cursor: pointer;
+    font-size: 15px;
+    margin-bottom: 30px;
+}
+
+.purchase-logo {
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: -3px;
+    background: linear-gradient(90deg,#fff,#54b9ff);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.purchase-box h2 {
+    font-size: 36px;
+    margin-top: 20px;
+}
+
+.purchase-product {
+    color: #9ba7b5;
+    margin-top: 8px;
+}
+
+.purchase-price {
+    color: #35adff;
+    font-size: 28px;
+    font-weight: bold;
+    margin: 12px 0 30px;
+}
+
+.purchase-box label {
+    display: block;
+    margin: 18px 0 8px;
+    color: #dce5ee;
+    font-size: 14px;
+}
+
+.purchase-box input {
+    width: 100%;
+    padding: 15px;
+    border-radius: 14px;
+    border: 1px solid #334252;
+    background: #0b1016;
+    color: white;
+    outline: none;
+    font-size: 16px;
+}
+
+.purchase-box input:focus {
+    border-color: #159cff;
+    box-shadow: 0 0 0 3px rgba(21,156,255,.12);
+}
+
+.test-note {
+    color: #788696;
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+.complete-btn, .buy-btn {
+    margin-top: 20px;
+    padding: 13px 20px;
+    border-radius: 22px;
+    border: none;
+    background: #159cff;
+    color: white;
+    cursor: pointer;
+    font-size: 15px;
+    transition: .25s;
+}
+
+.complete-btn {
+    width: 100%;
+}
+
+.complete-btn:hover, .buy-btn:hover {
+    background: #42b1ff;
+    transform: translateY(-2px);
+}
+
+.success-message {
+    display: none;
+    text-align: center;
+}
+
+.success-icon {
+    width: 65px;
+    height: 65px;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    background: #159cff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 35px;
+}
+
+.success-message h3 {
+    font-size: 28px;
+}
+
+.success-message p {
+    color: #9ba7b5;
+    line-height: 1.6;
+    margin-top: 10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">omi</div>
+    <ul>
+        <li><a href="#phones">Telefony</a></li>
+        <li><a href="#watch">OWatch</a></li>
+        <li><a href="#books">OmiBook</a></li>
+        <li><a href="#orion">Orion AI</a></li>
+    </ul>
+</nav>
+
+<section class="hero">
+    <div>
+        <h1>omi</h1>
+        <p>TECHNOLOGY FOR A BRIGHTER TOMORROW</p>
+        <button onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">
+            Prozkoumat Omi
+        </button>
+    </div>
+</section>
+
+<section id="products">
+    <h2 class="section-title">Objevte Omi</h2>
+
+    <div class="products">
+
+        <div class="card" id="phones">
+            <div class="product-visual"><div class="phone"></div></div>
+            <div>
+                <h3>Omi 2</h3>
+                <p>Nová generace. Každý den chytřejší.</p>
+                <div class="price" id="price-omi2">24 000 Kč</div>
+                <div class="storage-picker">
+                    <label for="storage-omi2">Úložiště</label>
+                    <select id="storage-omi2" onchange="updateCardPrice('omi2')">
+                        <option value="256">256 GB — 24 000 Kč</option>
+                        <option value="512">512 GB — 29 000 Kč</option>
+                    </select>
+                </div>
+                <div class="availability">Předprodej začíná 5. 11. 2026</div>
+                <button onclick="selectProduct('omi2'); document.getElementById('viewer').scrollIntoView({behavior:'smooth'})">Prohlédnout</button>
+            </div>
+        </div>
+
+        <div class="card" id="omi2pro-card">
+            <div class="product-visual"><div class="phone"></div></div>
+            <div>
+                <h3>Omi 2 Pro</h3>
+                <p>Výkon nové generace.</p>
+                <div class="price" id="price-omi2pro">35 000 Kč</div>
+                <div class="storage-picker">
+                    <label for="storage-omi2pro">Úložiště</label>
+                    <select id="storage-omi2pro" onchange="updateCardPrice('omi2pro')">
+                        <option value="256">256 GB — 35 000 Kč</option>
+                        <option value="512">512 GB — 43 000 Kč</option>
+                    </select>
+                </div>
+                <div class="availability">Předprodej začíná 5. 11. 2026</div>
+                <button onclick="selectProduct('omi2pro'); document.getElementById('viewer').scrollIntoView({behavior:'smooth'})">Prohlédnout</button>
+            </div>
+        </div>
+
+        <div class="card" id="ultra-card">
+            <div class="product-visual"><div class="phone"></div></div>
+            <div>
+                <h3>Omi Ultra</h3>
+                <p>Maximum Omi performance.</p>
+                <div class="price" id="price-ultra">36 000 Kč</div>
+                <div class="storage-picker">
+                    <label for="storage-ultra">Úložiště</label>
+                    <select id="storage-ultra" onchange="updateCardPrice('ultra')">
+                        <option value="256">256 GB — 36 000 Kč</option>
+                        <option value="512">512 GB — 44 000 Kč</option>
+                        <option value="1024">1 TB — 52 000 Kč</option>
+                        <option value="2048">2 TB — 64 000 Kč</option>
+                    </select>
+                </div>
+                <div class="availability">Dostupné nyní</div>
+                <button onclick="selectProduct('ultra'); document.getElementById('viewer').scrollIntoView({behavior:'smooth'})">Prohlédnout</button>
+                <button class="buy-btn" onclick="buyProduct('ultra', document.getElementById('storage-ultra').value)">Koupit</button>
+            </div>
+        </div>
+
+        <div class="card" id="omi2promax-card">
+            <div class="product-visual"><div class="phone"></div></div>
+            <div>
+                <h3>Omi 2 Pro Max</h3>
+                <p>Větší displej. Větší baterie. A25 Pro.</p>
+                <div class="price" id="price-omi2promax">40 000 Kč</div>
+                <div class="storage-picker">
+                    <label for="storage-omi2promax">Úložiště</label>
+                    <select id="storage-omi2promax" onchange="updateCardPrice('omi2promax')">
+                        <option value="256">256 GB — 40 000 Kč</option>
+                        <option value="512">512 GB — 48 000 Kč</option>
+                        <option value="1024">1 TB — 56 000 Kč</option>
+                        <option value="2048">2 TB — 68 000 Kč</option>
+                    </select>
+                </div>
+                <div class="availability">Předprodej začíná 5. 11. 2026</div>
+                <button onclick="selectProduct('omi2promax'); document.getElementById('viewer').scrollIntoView({behavior:'smooth'})">Prohlédnout</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="product-visual"><div class="phone"></div></div>
+            <div>
+                <h3>Omi 1</h3>
+                <p>Výkon. Inteligence. Design.</p>
+                <div class="price">22 990 Kč</div>
+                <button onclick="selectProduct('phone'); document.getElementById('viewer').scrollIntoView({behavior:'smooth'})">Prohlédnout</button>
+                <button class="buy-btn" onclick="buyProduct('phone')">Koupit</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="product-visual"><div class="phone"></div></div>
+            <div>
+                <h3>Omi 1 Pro</h3>
+                <p>Ještě více výkonu.</p>
+                <div class="price">35 000 Kč</div>
+                <button onclick="selectProduct('pro'); document.getElementById('viewer').scrollIntoView({behavior:'smooth'})">Prohlédnout</button>
+                <button class="buy-btn" onclick="buyProduct('pro')">Koupit</button>
+            </div>
+        </div>
+
+        <div class="card" id="watch">
+            <div class="product-visual">
+                <div class="watch"><div class="watch-screen"></div></div>
+            </div>
+            <div>
+                <h3>OWatch Pro</h3>
+                <p>Chytré hodinky s PureWOS.</p>
+                <div class="price">18 000 Kč</div>
+                <button onclick="selectProduct('watch'); document.getElementById('viewer').scrollIntoView({behavior:'smooth'})">Prohlédnout</button>
+                <button class="buy-btn" onclick="buyProduct('watch')">Koupit</button>
+            </div>
+        </div>
+
+        <div class="card" id="books">
+            <div class="product-visual"><div class="laptop"></div></div>
+            <div>
+                <h3>OmiBook</h3>
+                <p>Počítač nové generace.</p>
+                <div class="price">35 000 Kč</div>
+                <button onclick="selectProduct('book'); document.getElementById('viewer').scrollIntoView({behavior:'smooth'})">Prohlédnout</button>
+                <button class="buy-btn" onclick="buyProduct('book')">Koupit</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="product-visual"><div class="laptop"></div></div>
+            <div>
+                <h3>OmiBook Pro</h3>
+                <p>Vyšší výkon. Větší možnosti.</p>
+                <div class="price">54 990 Kč</div>
+                <button onclick="selectProduct('bookpro'); document.getElementById('viewer').scrollIntoView({behavior:'smooth'})">Prohlédnout</button>
+                <button class="buy-btn" onclick="buyProduct('bookpro')">Koupit</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="product-visual"><div class="laptop"></div></div>
+            <div>
+                <h3>OmiBook Ultra</h3>
+                <p>Absolutní výkon. Žádné limity.</p>
+                <div class="price">345 000 Kč</div>
+                <button onclick="selectProduct('bookultra'); document.getElementById('viewer').scrollIntoView({behavior:'smooth'})">Prohlédnout</button>
+                <button class="buy-btn" onclick="buyProduct('bookultra')">Koupit</button>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section id="viewer">
+    <h2 class="section-title">Prohlédněte si produkty</h2>
+
+    <div class="viewer">
+
+        <div class="viewer-top">
+
+            <div class="big-product">
+                <div class="big-phone" id="productVisual"></div>
+            </div>
+
+            <div class="info">
+                <h2 id="productName">Omi 1</h2>
+                <div class="tag" id="productTag">
+                    A more intelligent tomorrow.
+                </div>
+
+                <div class="specs">
+
+                    <div class="spec">
+                        <strong>ČIP</strong>
+                        <span id="chip">M2</span>
+                    </div>
+
+                    <div class="spec">
+                        <strong>DISPLEJ</strong>
+                        <span id="display">120 Hz</span>
+                    </div>
+
+                    <div class="spec">
+                        <strong>KAMERA</strong>
+                        <span id="camera">50 MP</span>
+                    </div>
+
+                    <div class="spec">
+                        <strong>AI</strong>
+                        <span>Orion AI</span>
+                    </div>
+
+                    <div class="spec">
+                        <strong>CENA</strong>
+                        <span id="productPrice">—</span>
+                    </div>
+
+                    <div class="spec">
+                        <strong>SYSTÉM</strong>
+                        <span id="system">PureOS</span>
+                    </div>
+
+                </div>
+
+                <div class="storage-picker" id="viewerStorageWrap" style="display:none; max-width:260px; margin-top:18px;">
+                    <label for="viewerStorage">Úložiště</label>
+                    <select id="viewerStorage" onchange="updateViewerStorage()"></select>
+                </div>
+                <div class="availability" id="viewerAvailability" style="display:none; margin-top:16px;">Předprodej začíná 5. 11. 2026</div>
+                <button class="buy-btn" id="viewerBuyBtn" onclick="buyCurrentProduct()" style="margin-top:18px;">Koupit tento model</button>
+
+                <div class="selector">
+                    <button onclick="selectProduct('omi2')">Omi 2</button>
+                    <button onclick="selectProduct('omi2pro')">Omi 2 Pro</button>
+                    <button onclick="selectProduct('ultra')">Omi Ultra</button>
+                    <button onclick="selectProduct('omi2promax')">Omi 2 Pro Max</button>
+                    <button onclick="selectProduct('phone')" class="active">Omi 1</button>
+                    <button onclick="selectProduct('pro')">Omi 1 Pro</button>
+                    <button onclick="selectProduct('ultra')">Omi Ultra</button>
+                    <button onclick="selectProduct('watch')">OWatch Pro</button>
+                    <button onclick="selectProduct('book')">OmiBook</button>
+                    <button onclick="selectProduct('bookpro')">OmiBook Pro</button>
+                    <button onclick="selectProduct('bookultra')">OmiBook Ultra</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ai" id="orion">
+    <h2>Orion AI</h2>
+    <p>
+        Inteligence, která propojuje celý Omi ekosystém.
+        Orion AI je hluboce integrován do Omi zařízení
+        a pomáhá při práci, komunikaci, tvorbě i každodenním používání.
+    </p>
+
+    <div class="ecosystem">
+        <div class="eco">📱<br>Omi Phone</div>
+        <div class="eco">⌚<br>OWatch</div>
+        <div class="eco">💻<br>OmiBook</div>
+        <div class="eco">🤖<br>Orion AI</div>
+    </div>
+</section>
+
+
+<section class="purchase-page" id="purchase">
+    <div class="purchase-box">
+        <button class="back-btn" onclick="closePurchase()">← Zpět na Omi</button>
+        <div class="purchase-logo">omi</div>
+        <h2>Dokončit nákup</h2>
+        <p class="purchase-product" id="purchaseProduct">Omi 1</p>
+        <div class="purchase-price" id="purchasePrice">22 990 Kč</div>
+
+        <form id="purchaseForm" onsubmit="finishPurchase(event)">
+            <label for="email">E-mail</label>
+            <input id="email" type="text" placeholder="example@oujety.cz" required>
+
+            <label for="card">Číslo karty</label>
+            <input id="card" type="text" inputmode="numeric"
+                   placeholder="1/37363" maxlength="7"
+                   pattern="1\/37363" title="Použij přesně 1/37363" required>
+
+            <p class="test-note">Testovací karta: <strong>1/37363</strong> — musí být zadána přesně takto.</p>
+
+            <button class="complete-btn" type="submit">Dokončit nákup</button>
+        </form>
+
+        <div class="success-message" id="successMessage">
+            <div class="success-icon">✓</div>
+            <h3>Objednávka přijata 🎉</h3>
+            <p>Toto je pouze testovací Omi obchod. <strong>Platba opravdu nebyla provedena a žádné peníze nebyly strženy.</strong></p>
+            <button class="complete-btn" onclick="closePurchase()">Zpět na web</button>
+        </div>
+    </div>
+</section>
+
+<footer>
+    © 2026 Omi — Technology for a brighter tomorrow.
+</footer>
+
+<script>
+
+const products = {
+
+omi2: {
+    name:"Omi 2",
+    tag:"Nová generace. Každý den chytřejší.",
+    chip:"Řada A",
+    display:"120 Hz OLED",
+    camera:"—",
+    prices:{"256":"24 000 Kč", "512":"29 000 Kč"},
+    price:"24 000 Kč (256 GB) · 29 000 Kč (512 GB)",
+    preorderOnly:true,
+    availabilityText:"Předprodej začíná 5. 11. 2026",
+    system:"PureOS"
+},
+
+omi2pro: {
+    name:"Omi 2 Pro",
+    tag:"Výkon nové generace.",
+    chip:"Řada A",
+    display:"120 Hz OLED",
+    camera:"—",
+    prices:{"256":"35 000 Kč", "512":"43 000 Kč"},
+    price:"35 000 Kč (256 GB) · 43 000 Kč (512 GB)",
+    preorderOnly:true,
+    availabilityText:"Předprodej začíná 5. 11. 2026",
+    system:"PureOS"
+},
+
+omi2promax: {
+    name:"Omi 2 Pro Max",
+    tag:"Větší displej. Větší baterie.",
+    chip:"A25 Pro • AMG Chips",
+    display:"Větší displej",
+    camera:"—",
+    prices:{"256":"40 000 Kč", "512":"48 000 Kč", "1024":"56 000 Kč", "2048":"68 000 Kč"},
+    price:"40 000 Kč (256 GB) · 48 000 Kč (512 GB) · 56 000 Kč (1 TB) · 68 000 Kč (2 TB)",
+    preorderOnly:true,
+    availabilityText:"Předprodej začíná 5. 11. 2026",
+    system:"PureOS"
+},
+
+phone: {
+    name:"Omi 1",
+    tag:"A more intelligent tomorrow.",
+    chip:"Řada A",
+    display:"120 Hz OLED",
+    camera:"50 MP • 5× telephoto",
+    price:"22 990 Kč",
+    system:"PureOS"
+},
+
+pro: {
+    name:"Omi 1 Pro",
+    tag:"A more intelligent tomorrow.",
+    chip:"Řada A",
+    display:"120 Hz OLED",
+    camera:"50 MP • 10× telephoto",
+    price:"35 000 Kč",
+    system:"PureOS"
+},
+
+ultra: {
+    name:"Omi Ultra",
+    tag:"Maximum Omi performance.",
+    chip:"Řada A",
+    display:"120 Hz OLED",
+    camera:"50 MP",
+    prices:{"256":"36 000 Kč", "512":"44 000 Kč", "1024":"52 000 Kč", "2048":"64 000 Kč"},
+    price:"36 000 Kč (256 GB) · 44 000 Kč (512 GB) · 52 000 Kč (1 TB) · 64 000 Kč (2 TB)",
+    preorderOnly:false,
+    availabilityText:"Dostupné nyní",
+    system:"PureOS"
+},
+
+watch: {
+    name:"OWatch Pro",
+    tag:"Your world. On your wrist.",
+    chip:"Omi Watch chip",
+    display:"Always-On display",
+    camera:"—",
+    price:"18 000 Kč",
+    system:"PureWOS"
+},
+
+book: {
+    name:"OmiBook",
+    tag:"Více možností. Stejná svoboda.",
+    chip:"Omi M4",
+    display:"15″ OLED • 120 Hz",
+    camera:"15 MP • 4K",
+    price:"35 000 Kč",
+    system:"BookOS"
+},
+
+bookpro: {
+    name:"OmiBook Pro",
+    tag:"Vyšší výkon. Větší možnosti.",
+    chip:"Omi M4 Pro",
+    display:"OLED • 120 Hz",
+    camera:"15 MP • 4K",
+    price:"54 990 Kč",
+    system:"BookOS"
+},
+
+bookultra: {
+    name:"OmiBook Ultra",
+    tag:"Absolutní výkon. Žádné limity.",
+    chip:"M10 Ultra • 75jádrové GPU",
+    display:"4095 × 3568 • 2 000 nitů",
+    camera:"15 MP • 4K",
+    price:"345 000 Kč",
+    system:"BookOS"
+}
+
+};
+
+let currentProductType = "phone";
+let currentStorage = "256";
+
+function formatPrice(type, storage) {
+    const p = products[type];
+    return p.prices ? p.prices[storage] : p.price;
+}
+
+function updateCardPrice(type) {
+    const storage = document.getElementById("storage-" + type).value;
+    const priceEl = document.getElementById("price-" + type);
+    if (priceEl) priceEl.textContent = formatPrice(type, storage);
+}
+
+function selectProduct(type) {
+    const p = products[type];
+    if (!p) return;
+    currentProductType = type;
+
+    document.getElementById("productName").textContent = p.name;
+    document.getElementById("productTag").textContent = p.tag;
+    document.getElementById("chip").textContent = p.chip;
+    document.getElementById("display").textContent = p.display;
+    document.getElementById("camera").textContent = p.camera;
+    document.getElementById("system").textContent = p.system;
+
+    const storageWrap = document.getElementById("viewerStorageWrap");
+    const storageSelect = document.getElementById("viewerStorage");
+    const buyButton = document.getElementById("viewerBuyBtn");
+    const availability = document.getElementById("viewerAvailability");
+    if (p.prices) {
+        const storageKeys = Object.keys(p.prices);
+        if (!p.prices[currentStorage]) currentStorage = storageKeys[0];
+        storageSelect.innerHTML = storageKeys.map(key => {
+            const label = key === "1024" ? "1 TB" : key === "2048" ? "2 TB" : key + " GB";
+            return `<option value="${key}">${label} — ${p.prices[key]}</option>`;
+        }).join("");
+        storageWrap.style.display = "block";
+        storageSelect.value = currentStorage;
+        document.getElementById("productPrice").textContent = formatPrice(type, storageSelect.value);
+    } else {
+        storageWrap.style.display = "none";
+        document.getElementById("productPrice").textContent = p.price;
+    }
+    buyButton.style.display = p.preorderOnly ? "none" : "inline-block";
+    availability.style.display = p.availabilityText ? "block" : "none";
+    if (p.availabilityText) availability.textContent = p.availabilityText;
+
+    const visual = document.getElementById("productVisual");
+    visual.className = "";
+    if(type === "watch") {
+        visual.className = "watch";
+        visual.innerHTML = '<div class="watch-screen"></div>';
+    } else if(type.includes("book")) {
+        visual.className = "laptop";
+        visual.innerHTML = "";
+    } else {
+        visual.className = "big-phone";
+        visual.innerHTML = "";
+    }
+
+    document.querySelectorAll(".selector button").forEach(b => {
+        b.classList.toggle("active", b.getAttribute("onclick")?.includes("'" + type + "'") || b.getAttribute("onclick")?.includes('"' + type + '"'));
+    });
+}
+
+function updateViewerStorage() {
+    currentStorage = document.getElementById("viewerStorage").value;
+    document.getElementById("productPrice").textContent = formatPrice(currentProductType, currentStorage);
+}
+
+function buyCurrentProduct() {
+    buyProduct(currentProductType, products[currentProductType].prices ? currentStorage : null);
+}
+
+function showProduct(type) {
+    document.getElementById("viewer").scrollIntoView({behavior:"smooth"});
+    selectProduct(type);
+}
+
+function buyProduct(type, storage) {
+    const p = products[type];
+    if (p.preorderOnly) {
+        alert("Předprodej tohoto modelu začíná 5. 11. 2026.");
+        return;
+    }
+    const chosenStorage = p.prices ? (storage || "256") : null;
+    const price = p.prices ? p.prices[chosenStorage] : p.price;
+    const storageLabel = chosenStorage === "1024" ? "1 TB" : chosenStorage === "2048" ? "2 TB" : chosenStorage + " GB";
+    const label = p.prices ? p.name + " · " + storageLabel : p.name;
+    document.getElementById("purchaseProduct").textContent = label;
+    document.getElementById("purchasePrice").textContent = price;
+
+    document.getElementById("purchase").style.display = "flex";
+    document.getElementById("purchase").scrollIntoView({behavior:"smooth"});
+    document.getElementById("purchaseForm").style.display = "block";
+    document.getElementById("successMessage").style.display = "none";
+}
+
+function closePurchase() {
+    document.getElementById("purchase").style.display = "none";
+    document.getElementById("products").scrollIntoView({behavior:"smooth"});
+}
+
+function finishPurchase(event) {
+    event.preventDefault();
+
+    const email = document.getElementById("email").value.trim();
+    const card = document.getElementById("card").value.trim();
+    const emailPattern = /^[^\s@]+@[^\s@]+\.cz$/i;
+
+    if(!emailPattern.test(email)) {
+        alert("E-mail musí obsahovat @ a končit na .cz.");
+        return;
+    }
+
+    if(card !== "1/37363") {
+        alert("Číslo karty musí být přesně 1/37363.");
+        return;
+    }
+
+    document.getElementById("purchaseForm").style.display = "none";
+    document.getElementById("successMessage").style.display = "block";
+}
+
+</script>
+
+</body>
+</html>
